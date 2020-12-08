@@ -64,6 +64,7 @@ void SortAlgorithms::quickSort(double* array, int start, int end){
   }
 }
 void SortAlgorithms::timeQuickSort(){
+  cout << "******************** QUICK SORT ********************" << endl;
   double* arrayCopy = new double[m_size];
   for(int i = 0; i < m_size; ++i)
     arrayCopy[i] = m_array[i];
@@ -132,6 +133,7 @@ void SortAlgorithms::mergeSort(double* array, int firstindex, int lastindex){
   }
 }
 void SortAlgorithms::timeMergeSort(){
+  cout << "******************** MERGE SORT ********************" << endl;
   double* arrayCopy = new double[m_size];
   for(int i = 0; i < m_size; ++i)
     arrayCopy[i] = m_array[i];
@@ -167,6 +169,7 @@ void SortAlgorithms::selectionSort(double* array, int size){
   }
 }
 void SortAlgorithms::timeSelectionSort(){
+  cout << "******************** SELECTION SORT ********************" << endl;
   double* arrayCopy = new double[m_size];
   for(int i = 0; i < m_size; ++i)
     arrayCopy[i] = m_array[i];
@@ -204,6 +207,7 @@ void SortAlgorithms::insertionSort(double* array, int size){
     }
 }
 void SortAlgorithms::timeInsertionSort(){
+  cout << "******************** INSERTION SORT ********************" << endl;
   double* arrayCopy = new double[m_size];
   for(int i = 0; i < m_size; ++i)
     arrayCopy[i] = m_array[i];
@@ -218,6 +222,37 @@ void SortAlgorithms::timeInsertionSort(){
   cpu_time_used = ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
   printArray(arrayCopy, m_size, true);
   cout << "Finished InsertionSort in " << cpu_time_used << " seconds" << endl;
+  delete arrayCopy;
+}
+/*
+********************BUBBLE SORT********************
+*/
+void SortAlgorithms::bubbleSort(double* array, int size){
+  int i, j;
+  for (i = 0; i < size - 1; i++)
+  // Last i elements are already in place
+  for(j = 0; j < size - i - 1; j++){
+    if(array[j] > array[j + 1]){
+        swap(&array[j], &array[j + 1]);
+    }
+  }
+}
+void SortAlgorithms::timeBubbleSort(){
+  cout << "******************** BUBBLE SORT ********************" << endl;
+  double* arrayCopy = new double[m_size];
+  for(int i = 0; i < m_size; ++i)
+    arrayCopy[i] = m_array[i];
+  printArray(arrayCopy, m_size, false);
+  clock_t startTime, endTime;
+  double cpu_time_used;
+  startTime = clock();
+
+  bubbleSort(arrayCopy, m_size);
+
+  endTime = clock();
+  cpu_time_used = ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
+  printArray(arrayCopy, m_size, true);
+  cout << "Finished BubbleSort in " << cpu_time_used << " seconds" << endl;
   delete arrayCopy;
 }
 void SortAlgorithms::printArray(){
@@ -248,5 +283,8 @@ void SortAlgorithms::run(){
   timeSelectionSort();
   cout << endl;
   timeInsertionSort();
+  cout << endl;
+  timeBubbleSort();
+
   cout << endl;
 }

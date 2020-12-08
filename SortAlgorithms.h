@@ -35,7 +35,9 @@ class SortAlgorithms{
     /* INSERTION SORT */
     void insertionSort(double* array, int size);
     void timeInsertionSort();
-    void bubbleSort(double* array);
+    /* BUBBLE SORT */
+    void bubbleSort(double* array, int size);
+    void timeBubbleSort();
 
     void printArray();
     void printArray(double* arr, int size, bool after); // reusable print function
