@@ -31,5 +31,8 @@ int main(int argc, char ** argv){
   string file = FE->getFileValue();
   sortAlgos = new SortAlgorithms(file);
 
+  delete FE;
+  delete sortAlgos;
+
   return 0;
 }
