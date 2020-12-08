@@ -29,9 +29,6 @@ void SortAlgorithms::processFile(){
 void SortAlgorithms::setLastIndex(){
   m_lastIndex = m_size - 1;
 }
-int SortAlgorithms::getLastIndex(){
-  return m_lastIndex;
-}
 void SortAlgorithms::swap(double* a, double* b){
   double temp = *a;
   *a = *b;

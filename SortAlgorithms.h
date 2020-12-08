@@ -11,16 +11,15 @@ class SortAlgorithms{
     int m_lastIndex;
     string m_file;
     ifstream inFile;
-    InputException IE;
   public:
     SortAlgorithms(); // default constructor
     SortAlgorithms(string file);
     ~SortAlgorithms(); // destructor
-    void processFile(); // processes the input file
+    /* FILE PROCESSOR */
+    void processFile(); // populates m_array with file input double values
+    /* MUTATOR */
     void setLastIndex();
-    int getLastIndex();
     void swap(double* a, double* b); // helper function to swap two elements
-
     /* QUICK SORT */
     void quickSort(double* array, int start, int end);
     int partition(double* array, int start, int end); // helper function
@@ -38,9 +37,10 @@ class SortAlgorithms{
     /* BUBBLE SORT */
     void bubbleSort(double* array, int size);
     void timeBubbleSort();
-
-    void printArray();
+    /* PRINT FUNCTIONS */
+    void printArray(); // prints out original array (ordered same as file)
     void printArray(double* arr, int size, bool after); // reusable print function
+    /* runs all of the timed sorting algorithms */
     void run();
 };
 #endif
