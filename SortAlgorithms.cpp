@@ -39,12 +39,12 @@ void SortAlgorithms::swap(double* a, double* b){
   *b = temp;
 }
 /*
-**********QUICK SORT**********
+********************QUICK SORT********************
 */
-/* takes last element as pivot, places
+/*takes last element as pivot, places
 the pivot element at its correct position in sorted
 array, and places all smaller than pivot to left of
-pivot and all greater elements to right of pivot */
+pivot and all greater elements to right of pivot*/
 int SortAlgorithms::partition(double* array, int start, int end){
   int pivot = array[end];
   int partitionIndex = start;
@@ -82,42 +82,42 @@ void SortAlgorithms::timeQuickSort(){
   delete arrayCopy;
 }
 /*
-**********MERGE SORT**********
+********************MERGE SORT********************
 */
-void SortAlgorithms::merge(double* array, int firstindex, int m, int lastindex){
+void SortAlgorithms::merge(double* array, int firstindex, int middle, int lastindex){
   int x, y, z;
-  int subArrayLeftSize = m - firstindex + 1;
-  int subArrayRightSize =  lastindex - m;
+  int subArrayLeftSize = middle - firstindex + 1;
+  int subArrayRightSize =  lastindex - middle;
 
-  double firstArr[subArrayLeftSize];  //temp array
-  double secondArr[subArrayRightSize];
+  double leftSubArr[subArrayLeftSize];  //temp array
+  double rightSubArr[subArrayRightSize];
 
   for (x = 0; x < subArrayLeftSize; x++) // copying data to temp arrays
-      firstArr[x] = array[firstindex + x];
+      leftSubArr[x] = array[firstindex + x];
   for (y = 0; y < subArrayRightSize; y++)
-      secondArr[y] = array[m + 1+ y];
+      rightSubArr[y] = array[middle + 1+ y];
 
   x = 0;
   y = 0;
   z = firstindex;
   while(x < subArrayLeftSize && y < subArrayRightSize){
-      if(firstArr[x] <= secondArr[y]){
-          array[z] = firstArr[x];
+      if(leftSubArr[x] <= rightSubArr[y]){
+          array[z] = leftSubArr[x];
           x++;
       }
       else{
-          array[z] = secondArr[y];
+          array[z] = rightSubArr[y];
           y++;
       }
       z++;
   }
   while(x < subArrayLeftSize){
-      array[z] = firstArr[x];
+      array[z] = leftSubArr[x];
       x++;
       z++;
   }
   while (y < subArrayRightSize){
-      array[z] = secondArr[y];
+      array[z] = rightSubArr[y];
       y++;
       z++;
   }
@@ -149,6 +149,10 @@ void SortAlgorithms::timeMergeSort(){
   cout << "Finished MergeSort in " << cpu_time_used << " seconds" << endl;
   delete arrayCopy;
 }
+/*
+********************SELECTION SORT********************
+*/
+
 void SortAlgorithms::printArray(){
   for(int i = 0; i < m_size; ++i){
     if(i == 0) cout << "[" << m_array[i] << ", ";

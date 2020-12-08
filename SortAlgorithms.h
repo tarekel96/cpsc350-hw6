@@ -29,7 +29,7 @@ class SortAlgorithms{
     void mergeSort(double* array, int firstindex, int lastindex);
     void merge(double* array, int firstindex, int middle, int lastindex);
     void timeMergeSort();
-
+    /* SELECTION SORT */
     void selectionSort(double* array);
     void insertionSort(double* array);
     void bubbleSort(double* array);
