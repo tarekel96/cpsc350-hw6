@@ -30,11 +30,14 @@ class SortAlgorithms{
     void merge(double* array, int firstindex, int middle, int lastindex);
     void timeMergeSort();
     /* SELECTION SORT */
-    void selectionSort(double* array);
+    void selectionSort(double* array, int size);
+    void timeSelectionSort();
+
     void insertionSort(double* array);
     void bubbleSort(double* array);
 
     void printArray();
     void printArray(double* arr, int size, bool after); // reusable print function
+    void run();
 };
 #endif
