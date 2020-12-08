@@ -5,9 +5,7 @@ SortAlgorithms::SortAlgorithms(string file){
   m_file = file;
   processFile();
   setLastIndex();
-  printArray();
-  quickSort(m_array, 0, m_lastIndex);
-  printArray();
+  timeQuickSort();
 }
 SortAlgorithms::~SortAlgorithms(){
   delete m_array;
@@ -62,10 +60,38 @@ void SortAlgorithms::quickSort(double* array, int start, int end){
     quickSort(array, partitionIndex + 1, end);
   }
 }
+void SortAlgorithms::timeQuickSort(){
+  double* arrayCopy = new double[m_size];
+  for(int i = 0; i < m_size; ++i)
+    arrayCopy[i] = m_array[i];
+  printArray(arrayCopy, m_size, false);
+  clock_t startTime, endTime;
+  double cpu_time_used;
+  startTime = clock();
+
+  quickSort(arrayCopy, 0, m_lastIndex);
+
+  endTime = clock();
+  cpu_time_used = ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
+  printArray(arrayCopy, m_size, true);
+  cout << "Finished QuickSort in " << cpu_time_used << " seconds" << endl;
+  delete arrayCopy;
+}
 void SortAlgorithms::printArray(){
   for(int i = 0; i < m_size; ++i){
     if(i == 0) cout << "[" << m_array[i] << ", ";
     else if(i == m_lastIndex) cout << m_array[i] << "]\n";
     else cout << m_array[i] << ", ";
+  }
+}
+void SortAlgorithms::printArray(double* arr, int size, bool after){
+
+  if(after) cout << "Array after sorting: " << endl;
+  else cout << "Array before sorting: " << endl;
+
+  for(int i = 0; i < size; ++i){
+    if(i == 0) cout << "[" << arr[i] << ", ";
+    else if(i == m_lastIndex) cout << arr[i] << "]\n";
+    else cout << arr[i] << ", ";
   }
 }

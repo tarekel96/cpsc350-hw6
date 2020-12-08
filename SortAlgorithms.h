@@ -2,6 +2,7 @@
 #define SORTALGORITHMS_H
 #include <iostream>
 #include <fstream>
+#include <ctime>
 #include "InputException.h"
 class SortAlgorithms{
   private:
@@ -21,12 +22,17 @@ class SortAlgorithms{
 
     void quickSort(double* array, int start, int end);
     int partition(double* array, int start, int end);
-    void swap(double* a, double* b); // helper function to swap two elements 
-    void mergeSort(double array);
-    void selectionSort(double array);
-    void insertionSort(double array);
-    void bubbleSort(double array);
+    void swap(double* a, double* b); // helper function to swap two elements
+    void timeQuickSort();
+
+    void mergeSort(double* array);
+    void timeMergeSort();
+
+    void selectionSort(double* array);
+    void insertionSort(double* array);
+    void bubbleSort(double* array);
 
     void printArray();
+    void printArray(double* arr, int size, bool after);
 };
 #endif
