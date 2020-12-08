@@ -16,16 +16,18 @@ class SortAlgorithms{
     SortAlgorithms(); // default constructor
     SortAlgorithms(string file);
     ~SortAlgorithms(); // destructor
-    void processFile();
+    void processFile(); // processes the input file
     void setLastIndex();
     int getLastIndex();
-
-    void quickSort(double* array, int start, int end);
-    int partition(double* array, int start, int end);
     void swap(double* a, double* b); // helper function to swap two elements
-    void timeQuickSort();
 
-    void mergeSort(double* array);
+    /* QUICK SORT */
+    void quickSort(double* array, int start, int end);
+    int partition(double* array, int start, int end); // helper function
+    void timeQuickSort(); // runs and times QuickSort
+    /* MERGE SORT */
+    void mergeSort(double* array, int firstindex, int lastindex);
+    void merge(double* array, int firstindex, int middle, int lastindex);
     void timeMergeSort();
 
     void selectionSort(double* array);
@@ -33,6 +35,6 @@ class SortAlgorithms{
     void bubbleSort(double* array);
 
     void printArray();
-    void printArray(double* arr, int size, bool after);
+    void printArray(double* arr, int size, bool after); // reusable print function
 };
 #endif

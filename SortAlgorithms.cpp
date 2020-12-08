@@ -6,6 +6,7 @@ SortAlgorithms::SortAlgorithms(string file){
   processFile();
   setLastIndex();
   timeQuickSort();
+  timeMergeSort();
 }
 SortAlgorithms::~SortAlgorithms(){
   delete m_array;
@@ -32,6 +33,14 @@ void SortAlgorithms::setLastIndex(){
 int SortAlgorithms::getLastIndex(){
   return m_lastIndex;
 }
+void SortAlgorithms::swap(double* a, double* b){
+  double temp = *a;
+  *a = *b;
+  *b = temp;
+}
+/*
+**********QUICK SORT**********
+*/
 /* takes last element as pivot, places
 the pivot element at its correct position in sorted
 array, and places all smaller than pivot to left of
@@ -47,11 +56,6 @@ int SortAlgorithms::partition(double* array, int start, int end){
   }
   swap(&array[partitionIndex], &array[end]);
   return partitionIndex;
-}
-void SortAlgorithms::swap(double* a, double* b){
-  double temp = *a;
-  *a = *b;
-  *b = temp;
 }
 void SortAlgorithms::quickSort(double* array, int start, int end){
   if(start < end){
@@ -75,6 +79,74 @@ void SortAlgorithms::timeQuickSort(){
   cpu_time_used = ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
   printArray(arrayCopy, m_size, true);
   cout << "Finished QuickSort in " << cpu_time_used << " seconds" << endl;
+  delete arrayCopy;
+}
+/*
+**********MERGE SORT**********
+*/
+void SortAlgorithms::merge(double* array, int firstindex, int m, int lastindex){
+  int x, y, z;
+  int subArrayLeftSize = m - firstindex + 1;
+  int subArrayRightSize =  lastindex - m;
+
+  double firstArr[subArrayLeftSize];  //temp array
+  double secondArr[subArrayRightSize];
+
+  for (x = 0; x < subArrayLeftSize; x++) // copying data to temp arrays
+      firstArr[x] = array[firstindex + x];
+  for (y = 0; y < subArrayRightSize; y++)
+      secondArr[y] = array[m + 1+ y];
+
+  x = 0;
+  y = 0;
+  z = firstindex;
+  while(x < subArrayLeftSize && y < subArrayRightSize){
+      if(firstArr[x] <= secondArr[y]){
+          array[z] = firstArr[x];
+          x++;
+      }
+      else{
+          array[z] = secondArr[y];
+          y++;
+      }
+      z++;
+  }
+  while(x < subArrayLeftSize){
+      array[z] = firstArr[x];
+      x++;
+      z++;
+  }
+  while (y < subArrayRightSize){
+      array[z] = secondArr[y];
+      y++;
+      z++;
+  }
+}
+void SortAlgorithms::mergeSort(double* array, int firstindex, int lastindex){
+  if(firstindex < lastindex){
+      int middle = firstindex + (lastindex - firstindex)/2;
+
+      mergeSort(array, firstindex, middle);
+      mergeSort(array, middle + 1, lastindex);
+
+      merge(array, firstindex, middle, lastindex);
+  }
+}
+void SortAlgorithms::timeMergeSort(){
+  double* arrayCopy = new double[m_size];
+  for(int i = 0; i < m_size; ++i)
+    arrayCopy[i] = m_array[i];
+  printArray(arrayCopy, m_size, false);
+  clock_t startTime, endTime;
+  double cpu_time_used;
+  startTime = clock();
+
+  mergeSort(arrayCopy, 0, m_lastIndex);
+
+  endTime = clock();
+  cpu_time_used = ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
+  printArray(arrayCopy, m_size, true);
+  cout << "Finished MergeSort in " << cpu_time_used << " seconds" << endl;
   delete arrayCopy;
 }
 void SortAlgorithms::printArray(){
