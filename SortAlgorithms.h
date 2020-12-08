@@ -32,8 +32,9 @@ class SortAlgorithms{
     /* SELECTION SORT */
     void selectionSort(double* array, int size);
     void timeSelectionSort();
-
-    void insertionSort(double* array);
+    /* INSERTION SORT */
+    void insertionSort(double* array, int size);
+    void timeInsertionSort();
     void bubbleSort(double* array);
 
     void printArray();

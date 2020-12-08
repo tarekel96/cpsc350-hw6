@@ -91,9 +91,9 @@ void SortAlgorithms::merge(double* array, int firstindex, int middle, int lastin
   double leftSubArr[subArrayLeftSize];  //temp array
   double rightSubArr[subArrayRightSize];
 
-  for (x = 0; x < subArrayLeftSize; x++) // copying data to temp arrays
+  for(x = 0; x < subArrayLeftSize; x++) // copying data to temp arrays
       leftSubArr[x] = array[firstindex + x];
-  for (y = 0; y < subArrayRightSize; y++)
+  for(y = 0; y < subArrayRightSize; y++)
       rightSubArr[y] = array[middle + 1+ y];
 
   x = 0;
@@ -123,12 +123,12 @@ void SortAlgorithms::merge(double* array, int firstindex, int middle, int lastin
 }
 void SortAlgorithms::mergeSort(double* array, int firstindex, int lastindex){
   if(firstindex < lastindex){
-      int middle = firstindex + (lastindex - firstindex)/2;
+    int middle = firstindex + (lastindex - firstindex)/2;
 
-      mergeSort(array, firstindex, middle);
-      mergeSort(array, middle + 1, lastindex);
+    mergeSort(array, firstindex, middle);
+    mergeSort(array, middle + 1, lastindex);
 
-      merge(array, firstindex, middle, lastindex);
+    merge(array, firstindex, middle, lastindex);
   }
 }
 void SortAlgorithms::timeMergeSort(){
@@ -152,25 +152,18 @@ void SortAlgorithms::timeMergeSort(){
 ********************SELECTION SORT********************
 */
 void SortAlgorithms::selectionSort(double* array, int size){
-    int i, j, min_idx;
+  int i, j, min_idx;
 
-    // One by one move boundary of unsorted subarray
-    for(i = 0; i < size - 1; i++){
-        // Find the minimum element in unsorted array
-        min_idx = i;
-        for(j = i+1; j < size; j++){
-          if(array[j] < array[min_idx])
-            min_idx = j;
-        }
-        // Swap the found minimum element with the first element
-        swap(&array[min_idx], &array[i]);
-    }
-}
-void SortAlgorithms::printArray(){
-  for(int i = 0; i < m_size; ++i){
-    if(i == 0) cout << "[" << m_array[i] << ", ";
-    else if(i == m_lastIndex) cout << m_array[i] << "]\n";
-    else cout << m_array[i] << ", ";
+  // One by one move boundary of unsorted subarray
+  for(i = 0; i < size - 1; i++){
+      // Find the minimum element in unsorted array
+      min_idx = i;
+      for(j = i+1; j < size; j++){
+        if(array[j] < array[min_idx])
+          min_idx = j;
+      }
+      // Swap the found minimum element with the first element
+      swap(&array[min_idx], &array[i]);
   }
 }
 void SortAlgorithms::timeSelectionSort(){
@@ -190,6 +183,50 @@ void SortAlgorithms::timeSelectionSort(){
   cout << "Finished SelectionSort in " << cpu_time_used << " seconds" << endl;
   delete arrayCopy;
 }
+/*
+********************INSERTION SORT********************
+*/
+void SortAlgorithms::insertionSort(double* array, int size){
+    int i, j;
+    double key;
+    for(i = 1; i < size; i++){
+      key = array[i];
+      j = i - 1;
+
+      /* Move elements of array[0..i-1], that are
+      greater than key, to one position ahead
+      of their current position */
+      while(j >= 0 && array[j] > key){
+          array[j + 1] = array[j];
+          j = j - 1;
+      }
+      array[j + 1] = key;
+    }
+}
+void SortAlgorithms::timeInsertionSort(){
+  double* arrayCopy = new double[m_size];
+  for(int i = 0; i < m_size; ++i)
+    arrayCopy[i] = m_array[i];
+  printArray(arrayCopy, m_size, false);
+  clock_t startTime, endTime;
+  double cpu_time_used;
+  startTime = clock();
+
+  insertionSort(arrayCopy, m_size);
+
+  endTime = clock();
+  cpu_time_used = ((double) (endTime - startTime)) / CLOCKS_PER_SEC;
+  printArray(arrayCopy, m_size, true);
+  cout << "Finished InsertionSort in " << cpu_time_used << " seconds" << endl;
+  delete arrayCopy;
+}
+void SortAlgorithms::printArray(){
+  for(int i = 0; i < m_size; ++i){
+    if(i == 0) cout << "[" << m_array[i] << ", ";
+    else if(i == m_lastIndex) cout << m_array[i] << "]\n";
+    else cout << m_array[i] << ", ";
+  }
+}
 void SortAlgorithms::printArray(double* arr, int size, bool after){
 
   if(after) cout << "Array after sorting: " << endl;
@@ -203,11 +240,13 @@ void SortAlgorithms::printArray(double* arr, int size, bool after){
 }
 void SortAlgorithms::run(){
   cout << endl;
-  
+
   timeQuickSort();
   cout << endl;
   timeMergeSort();
   cout << endl;
   timeSelectionSort();
+  cout << endl;
+  timeInsertionSort();
   cout << endl;
 }
