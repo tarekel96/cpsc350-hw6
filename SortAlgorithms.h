@@ -2,7 +2,9 @@
 #define SORTALGORITHMS_H
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <ctime>
+#include <random>
 #include "InputException.h"
 class SortAlgorithms{
   private:
@@ -11,6 +13,7 @@ class SortAlgorithms{
     int m_lastIndex;
     string m_file;
     ifstream inFile;
+    ofstream outFile;
   public:
     SortAlgorithms(); // default constructor
     SortAlgorithms(string file);
@@ -42,5 +45,8 @@ class SortAlgorithms{
     void printArray(double* arr, int size, bool after); // reusable print function
     /* runs all of the timed sorting algorithms */
     void run();
+
+    void genSampleListFile(int listSize);
+    double genRandomDouble(double min, double max);
 };
 #endif
