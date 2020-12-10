@@ -5,7 +5,7 @@
 #include <string>
 #include <ctime>
 #include <random>
-#include "InputException.h"
+using namespace std;
 class SortAlgorithms{
   private:
     double* m_array;
